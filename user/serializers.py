@@ -10,7 +10,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ["username", "first_name", "last_name", "email", "phone_number", "password1", "password2", "profile_image"]
+        fields = ["username", "first_name", "last_name", "email", "phone_number","gender", "password1", "password2", "profile_image"]
 
     def validate(self, data):
         """Check password match and add security checks"""
@@ -27,7 +27,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         password = validated_data.pop("password1")
-        validated_data.pop("password2")  # Remove password2 from validated data
+        validated_data.pop("password2")  
 
         user = User.objects.create_user(
             username=validated_data["username"],
@@ -49,4 +49,4 @@ class RegisterSerializer(serializers.ModelSerializer):
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ["phone_number", "role", "balance", "image", "is_email_verified"]
+        fields = ["phone_number", "role", "loan_balance", "image", "is_email_verified"]

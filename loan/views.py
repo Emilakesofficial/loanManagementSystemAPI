@@ -76,7 +76,7 @@ class RepaymentView(APIView):
         # Get active loan
         loan = Loan.objects.filter(user=user_profile, status__in=["approved", "active"]).order_by("-created_at").first()
         if not loan:
-            return Response({"error": "No active loan found."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "Loan fully paid or No active loan found."}, status=status.HTTP_400_BAD_REQUEST)
 
         amount_paid = request.data.get("amount_paid")
         if not amount_paid or float(amount_paid) <= 0:
