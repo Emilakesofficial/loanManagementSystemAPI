@@ -9,13 +9,14 @@ class UserProfile(models.Model):
     GENDER = (
         ('male', 'Male'),
         ('female', 'Female'),
+        ('other', 'Other'),
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     phone_number = models.CharField(max_length=15, unique=True)
     role = models.CharField(max_length=10, choices=ROLES_CHOICE, default='borrower')
     loan_balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     image = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
-    gender = models.CharField(max_length=10, choices=GENDER, null=False, blank=False)
+    gender = models.CharField(max_length=10, choices=GENDER, default= 'Other')
     is_email_verified = models.BooleanField(default=False)
     
     def update_loan_balance(self):
